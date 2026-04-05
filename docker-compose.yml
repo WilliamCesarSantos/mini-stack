@@ -1,0 +1,37 @@
+version: "3.8"
+
+services:
+  # ─────────────────────────────────────────
+  # MiniStack – free, open-source AWS emulator
+  # Services: S3, SNS, SQS, DynamoDB, Athena, Glue,
+  #           RDS (real PostgreSQL container),
+  #           ElastiCache (real Redis container)
+  # https://github.com/Nahuel990/ministack
+  # ─────────────────────────────────────────
+  ministack:
+    image: nahuelnucera/ministack
+    container_name: mini-stack
+    ports:
+      - "4566:4566"
+    environment:
+      - AWS_DEFAULT_REGION=us-east-1
+      - AWS_ACCESS_KEY_ID=test
+      - AWS_SECRET_ACCESS_KEY=test
+    volumes:
+      # Docker socket is required so MiniStack can spin up
+      # real PostgreSQL and Redis containers for RDS and ElastiCache
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ministack-data:/tmp/ministack
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4566/_ministack/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 15
+      start_period: 10s
+
+volumes:
+  ministack-data:
+
+networks:
+  default:
+    name: mini-stack-net
