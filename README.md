@@ -15,6 +15,7 @@ Demonstration project for AWS services emulated locally with **[MiniStack](https
 | Athena + Glue     | MiniStack + **DuckDB** (real SQL engine)  | 4566      |
 | Aurora PostgreSQL | MiniStack → real PostgreSQL container     | dynamic   |
 | ElastiCache       | MiniStack → real Redis container          | dynamic   |
+| Lambda            | MiniStack (emulated)                      | 4566      |
 
 > RDS and ElastiCache spin up real Docker containers. The endpoint (host:port) is retrieved via `aws rds describe-db-instances` / `aws elasticache describe-cache-clusters`.
 
@@ -32,7 +33,10 @@ mini-stack/
 │   │   ├── 04-dynamodb.sh      # Create tables + insert items
 │   │   ├── 05-athena.sh        # Create Glue database + external tables
 │   │   ├── 06-rds.sh           # Create RDS PostgreSQL + apply schema/seed
-│   │   └── 07-elasticache.sh   # Create ElastiCache Redis cluster
+│   │   ├── 07-elasticache.sh   # Create ElastiCache Redis cluster
+│   │   ├── 08-lambda.sh        # Package and deploy hello-world Python Lambda
+│   │   └── lambda/
+│   │       └── hello_world.py  # Python Lambda source
 │   └── sql/                    # SQL applied by 06-rds.sh
 │       ├── 01-schema.sql
 │       └── 02-seed.sql
@@ -45,6 +49,7 @@ mini-stack/
     ├── athena-demo.sh
     ├── postgres-demo.sh        # Fetches RDS endpoint via AWS CLI
     ├── elasticache-demo.sh     # Fetches ElastiCache endpoint via AWS CLI
+    ├── lambda-demo.sh          # Invokes the Python Lambda function
     └── run-all-demos.sh
 ```
 
@@ -94,6 +99,7 @@ chmod +x scripts/*.sh init/aws/*.sh
 ./scripts/athena-demo.sh
 ./scripts/postgres-demo.sh
 ./scripts/elasticache-demo.sh
+./scripts/lambda-demo.sh
 
 # All at once
 ./scripts/run-all-demos.sh

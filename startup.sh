@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # ─────────────────────────────────────────────────────────────
-# setup.sh  –  Bootstraps all services in MiniStack
+# startup.sh  –  Starts MiniStack and bootstraps all services
 #
-# Run AFTER: docker compose up -d
+# Pair with: bash scripts/down.sh
 # ─────────────────────────────────────────────────────────────
 set -euo pipefail
 
@@ -11,8 +11,13 @@ export AWS_SECRET_ACCESS_KEY=test
 export AWS_DEFAULT_REGION=us-east-1
 
 ENDPOINT="http://localhost:4566"
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-INIT_DIR="$SCRIPT_DIR/../init/aws"
+BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+INIT_DIR="$BASE_DIR/init/aws"
+
+# ── Start docker compose ──────────────────────────────────────
+echo "⏳ Starting docker compose..."
+docker compose -f "$BASE_DIR/docker-compose.yml" up -d
+echo ""
 
 # ── Wait for MiniStack to be healthy ─────────────────────────
 echo "⏳ Waiting for MiniStack to start..."
@@ -40,11 +45,12 @@ run_init "04-dynamodb.sh"
 run_init "05-athena.sh"
 run_init "06-rds.sh"
 run_init "07-elasticache.sh"
+run_init "08-lambda.sh"
 
 echo ""
 echo "╔══════════════════════════════════════════╗"
 echo "  ✔  All services initialized!             "
 echo "╚══════════════════════════════════════════╝"
 echo ""
-echo "Run the demos:"
-echo "  ./scripts/run-all-demos.sh"
+echo "Run the demos:  bash scripts/run-all-demos.sh"
+echo "Shut down:      bash down.sh"

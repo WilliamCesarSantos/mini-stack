@@ -5,7 +5,7 @@
 # ─────────────────────────────────────────────────────────────
 set -euo pipefail
 
-AWS="aws --endpoint-url=http://localhost:4566 --region us-east-1"
+AWS="aws --no-cli-pager --endpoint-url=http://localhost:4566 --region us-east-1"
 OUTPUT_LOCATION="s3://mini-stack-athena-results/"
 DATABASE="ministack"
 

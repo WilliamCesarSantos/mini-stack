@@ -4,7 +4,7 @@
 # ─────────────────────────────────────────────────────────────
 set -euo pipefail
 
-AWS="aws --endpoint-url=http://localhost:4566 --region us-east-1"
+AWS="aws --no-cli-pager --endpoint-url=http://localhost:4566 --region us-east-1"
 ACCOUNT_ID="000000000000"
 TOPIC_ARN="arn:aws:sns:us-east-1:${ACCOUNT_ID}:mini-stack-topic"
 

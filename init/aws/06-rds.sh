@@ -7,7 +7,7 @@
 # ─────────────────────────────────────────────────────────────
 set -euo pipefail
 
-AWS="aws --endpoint-url=http://localhost:4566 --region us-east-1"
+AWS="aws --no-cli-pager --endpoint-url=http://localhost:4566 --region us-east-1"
 INSTANCE_ID="ministack-postgres"
 DB_NAME="ministack"
 DB_USER="admin"
@@ -47,6 +47,9 @@ echo ">>> [RDS] Applying schema and seed data..."
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SQL_DIR="$SCRIPT_DIR/../sql"
+
+echo "RDS_HOST = $RDS_HOST"
+echo "RDS_PORT = $RDS_PORT"
 
 export PGPASSWORD="$DB_PASS"
 psql -h "$RDS_HOST" -p "$RDS_PORT" -U "$DB_USER" -d "$DB_NAME" -f "$SQL_DIR/01-schema.sql"

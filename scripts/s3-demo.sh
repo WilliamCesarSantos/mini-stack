@@ -4,7 +4,7 @@
 # ─────────────────────────────────────────────────────────────
 set -euo pipefail
 
-AWS="aws --endpoint-url=http://localhost:4566 --region us-east-1"
+AWS="aws --no-cli-pager --endpoint-url=http://localhost:4566 --region us-east-1"
 
 echo "═══════════════════════════════════════════"
 echo "  S3 Demo – Mini-Stack"
@@ -21,18 +21,18 @@ $AWS s3 ls s3://mini-stack-data --recursive --human-readable
 echo ""
 echo "▸ Uploading a new report file..."
 TMP=$(mktemp)
-cat <<REPORT > "$TMP"
+cat > "$TMP" <<REPORT
 Sales Report – $(date +"%B %Y")
 ================================
 Total orders:    5
-Gross revenue:   $8,229.50
-Average ticket:  $1,645.90
+Gross revenue:   \$8,229.50
+Average ticket:  \$1,645.90
 Unique products: 6
 
 Top 3 products:
-  1. Notebook Pro 15  –  $4,599.90
-  2. 27in 4K Monitor  –  $2,199.90
-  3. Wireless Headset –  $  499.90
+  1. Notebook Pro 15  –  \$4,599.90
+  2. 27in 4K Monitor  –  \$2,199.90
+  3. Wireless Headset –  \$  499.90
 REPORT
 $AWS s3 cp "$TMP" s3://mini-stack-data/reports/sales-report.txt
 echo "  Upload complete."

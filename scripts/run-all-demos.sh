@@ -24,6 +24,7 @@ run_demo "DynamoDB"             "dynamodb-demo.sh"
 run_demo "Athena"               "athena-demo.sh"
 run_demo "PostgreSQL (Aurora)"  "postgres-demo.sh"
 run_demo "ElastiCache (Redis)"  "elasticache-demo.sh"
+run_demo "Lambda (Python)"      "lambda-demo.sh"
 
 echo ""
 echo "╔══════════════════════════════════════════╗"

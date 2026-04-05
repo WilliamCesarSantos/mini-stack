@@ -5,7 +5,7 @@
 # ─────────────────────────────────────────────────────────────
 set -euo pipefail
 
-AWS="aws --endpoint-url=http://localhost:4566 --region us-east-1"
+AWS="aws --no-cli-pager --endpoint-url=http://localhost:4566 --region us-east-1"
 
 echo ">>> [S3] Creating buckets..."
 $AWS s3 mb s3://mini-stack-data

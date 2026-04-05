@@ -7,7 +7,7 @@
 # ─────────────────────────────────────────────────────────────
 set -euo pipefail
 
-AWS="aws --endpoint-url=http://localhost:4566 --region us-east-1"
+AWS="aws --no-cli-pager --endpoint-url=http://localhost:4566 --region us-east-1"
 CLUSTER_ID="ministack-redis"
 
 echo ">>> [ElastiCache] Creating Redis cluster '$CLUSTER_ID'..."

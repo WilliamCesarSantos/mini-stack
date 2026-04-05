@@ -4,7 +4,7 @@
 # ─────────────────────────────────────────────────────────────
 set -euo pipefail
 
-AWS="aws --endpoint-url=http://localhost:4566 --region us-east-1"
+AWS="aws --no-cli-pager --endpoint-url=http://localhost:4566 --region us-east-1"
 ORDERS_QUEUE="http://localhost:4566/000000000000/mini-stack-orders-queue"
 EVENTS_QUEUE="http://localhost:4566/000000000000/mini-stack-events-queue"
 
